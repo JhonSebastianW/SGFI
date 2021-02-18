@@ -1,0 +1,29 @@
+{% extends "baseAdmin.html" %}
+{% block title %}SGFI - Admin (Empresas){% endblock %}
+{% block subtitulo %}Empresas{% endblock %}
+{% block cuerpo %}
+    <div class=contenedor>
+        {% if listaEmpresas %}
+            <ul>
+                {% for empresa in listaEmpresas %}
+                    <li>
+                        <img src="{{ empresa.logo.url }}" class=imagen>
+                        {% load static %}
+                        {% if empresa.estado %}
+                            <img src="{% static 'sgfi/img/on.png' %}" class=estado>
+                        {% else %}
+                            <img src="{% static 'sgfi/img/off.png' %}" class=estado>
+                        {% endif %}
+                        <h2>{{ empresa.nombre }}</h2>
+                        <p>Usuario: @{{ empresa.username }}</p>
+                        <p>Lema: {{ empresa.lema }}</p>
+                        <p>Correo: {{ empresa.email }}</p>
+                        <a href='{% url 'sgfi:adminEditarEmpresa' empresa.id %}' class=editar>Editar</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No hayEmpresas</p>
+        {% endif %}
+    </div>
+{% endblock %}

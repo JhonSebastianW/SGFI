@@ -1,0 +1,12 @@
+{% extends "baseEmpresa.html" %}
+{% block title %}SGFI - Empresa (Editar Factura){% endblock %}
+{% block subtitulo %}Editar Factura{% endblock %}
+{% block cuerpo %}
+    <div class=registro-box>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Editar">
+        </form>
+    </div>
+{% endblock %}

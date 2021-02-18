@@ -1,0 +1,75 @@
+{% extends "baseEmpresa.html" %}
+{% block title %}SGFI - Empresa (Productos factura){% endblock %}
+{% block subtitulo %}Productos Factura{% endblock %}
+{% block cuerpo %}
+{% load static %}
+<div class="atras">
+    <a href="{% url 'sgfi:empresaFacturas' %}">Atras.</a>
+</div>
+<div class=contenedorMain>
+        <ul>
+           <li>
+               <img src="{{ user.logo.url }}">
+               <p>Empresa: {{ user.nombre }}</p>
+               <p>Sede: {{ sede.nombre }}, Ciudad {{ sede.ciudad }} </p>
+               <p>Fecha: {{ factura.fecha }}</p>
+               <p>Empleado: {{ empleado.primerNombre }} {{ empleado.primerApellido }}</p>
+               <p>Cliente: {{ factura.cliente.nombre }} {{ factura.cliente.apellido }}, ID: {{ factura.cliente.cedula }}</p>
+           </li>
+        </ul>
+    </div>
+    <div class=contenedor>
+            <table>
+               <tr>
+                   <th>Referencia</th>
+                   <th>Producto</th>
+                   <th>Valor</th>
+                   <th>IVA</th>
+               </tr>
+            {% if listaProductosFactura %}
+                {% for producto in listaProductosFactura %}
+                    <tr>
+                        <td>{{ producto.referencia}}</td>
+                        <td>{{ producto.nombre }}</td>
+                        <td>{{ producto.valor }}</td>
+                        <td>{{ producto.iva}}</td>
+                    </tr>
+                {% endfor %}
+                <tr style="background-color: #dbbe96;">
+                  <td><br></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td style="background-color: #dbbe96;"></td>
+                  <td style="background-color: #dbbe96;"></td>
+                  <td>Subtotal sin Iva:</td>
+                  <td>{{ subtotal}}</td>
+                </tr>
+                <tr>
+                  <td style="background-color: #dbbe96;"></td>
+                  <td style="background-color: #dbbe96;"></td>
+                  <td>IVA:</td>
+                  <td>{{iva}}</td>
+                </tr>
+                 <tr>
+                  <td style="background-color: #dbbe96;"></td>
+                  <td style="background-color: #dbbe96;"></td>
+                  <td>Total:</td>
+                  <td>{{total}}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td></td>
+                    <td>No hay productos aun</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            {% endif %}
+            </table>
+    </div>
+    <div class="pdf">
+        <a href="{% url 'sgfi:empresaProductosFacturaPdf' factura.numero %}"><img src="{% static 'sgfi/img/pdf.png' %}" alt="PDF"></a>
+    </div>
+{% endblock %}

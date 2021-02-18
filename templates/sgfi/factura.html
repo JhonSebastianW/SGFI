@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Factura - {{ factura.numero }} - {{ user.nombre }}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'sgfi/css/base.css' %}">
+</head>
+<body>
+    <h1>Factura</h1>
+    <img src="{{ user.logo.url }}" width="100" height="100" style="text-align: right; border-radius:50px;">
+    <div class=contenedorMain>
+        <br><br>
+        <table>
+           <tr style="border-top: 2px solid #000000;"><td></td><td>.</td></tr>
+            <tr>
+            <td>
+               <p>
+                    <strong>{{ user.nombre }}</strong><br>
+                    {{ sede.nombre }}<br>
+                    {{ user.email }}, {{ sede.telefono }}<br>
+                    {{ sede.direccion }}, {{ sede.ciudad }} <br>
+               </p>
+           </td>
+            <td>
+                <p>
+                    <strong>{{ factura.cliente.nombre }} {{ factura.cliente.apellido }}</strong><br>
+                    ID: {{ factura.cliente.cedula }} <br>
+                    Referencia: #{{ factura.numero }}<br>
+                    {{ factura.fecha }} <br>
+                </p>
+            </td>
+            </tr>
+            <tr style="border-bottom: 2px solid #000000;"><td></td><td>.</td></tr>
+        </table>
+    </div>
+    <br><br>
+    <div class=contenedor>
+            <table style="text-align: right;">
+                <tr style="border-top: 2px solid #000000;"><td></td><td></td><td></td><td><br></td></tr>
+                <tr style="border-bottom: 1px solid red;">
+                   <th>Referencia</th>
+                   <th>Producto</th>
+                   <th>IVA</th>
+                   <th>Valor</th>
+               </tr>
+                <tr>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                </tr>
+            {% if listaProductosFactura %}
+                {% for producto in listaProductosFactura %}
+                    <tr>
+                        <td>{{ producto.referencia}}</td>
+                        <td>{{ producto.nombre }}</td>
+                        <td>{{ producto.iva}}</td>
+                        <td>{{ producto.valor }}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                </tr>
+                <tr style="border-top: 1px solid #000000;">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td><br></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td><strong>Subtotal sin IVA:</strong></td>
+                  <td>{{ subtotal}}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td><strong>IVA:</strong></td>
+                  <td>{{iva}}</td>
+                </tr>
+                 <tr style="color:red">
+                  <td></td>
+                  <td></td>
+                  <td><strong>Total:</strong></td>
+                  <td>{{total}}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td></td>
+                    <td>No hay productos aun</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            {% endif %}
+                <tr style="border-top: 2px solid #000000;"><td></td><td></td><td></td><td><br></td></tr>
+            </table>
+    </div>
+    <p>
+        Atendido por: {{ empleado.primerNombre }} {{ empleado.primerApellido }}. <i>Factura generada a partir de SGFI. ®</i>
+    </p>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{% extends "baseAdmin.html" %}
+{% block title %}SGFI - Admin (Crear){% endblock %}
+{% block subtitulo %}Crear Empresa{% endblock %}
+{% block cuerpo %}
+    <div class=registro-box>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Registrar">
+        </form>
+    </div>
+{% endblock %}

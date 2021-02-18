@@ -1,0 +1,60 @@
+{% extends "baseEmpresa.html" %}
+{% block title %}SGFI - Empresa (Agregar productos a factura){% endblock %}
+{% block subtitulo %}Agregar productos a factura{% endblock %}
+{% block cuerpo %}
+    <div class=contenedorMain>
+        <ul>
+           <li>
+               <img src="{{ user.logo.url }}">
+               <p>Empresa: {{ user.nombre }}</p>
+               <p>Sede: {{ sede.nombre }}, Ciudad {{ sede.ciudad }} </p>
+               <p>Fecha: {{ factura.fecha }}</p>
+               <p>Empleado: {{ empleado.primerNombre }} {{ empleado.primerApellido }}</p>
+               <p>Cliente: {{ factura.cliente.nombre }} {{ factura.cliente.apellido }}, ID: {{ factura.cliente.cedula }}</p>
+           </li>
+        </ul>
+    </div>
+    <div class=contenedor>
+            <table>
+               <tr>
+                   <th>Referencia</th>
+                   <th>Producto</th>
+                   <th>Valor</th>
+                   <th>IVA</th>
+               </tr>
+            {% if listaProductosFactura %}
+                {% for producto in listaProductosFactura %}
+                    <tr>
+                        <td>{{ producto.referencia}}</td>
+                        <td>{{ producto.nombre }}</td>
+                        <td>{{ producto.valor }}</td>
+                        <td>{{ producto.iva}}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                  <td>Total: </td>
+                  <td></td>
+                  <td>{{ total}}</td>
+                  <td>{{ iva }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td></td>
+                    <td>No hay productos aun</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            {% endif %}
+               <tr>
+                  <td></td>
+                  <td>
+                      <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form.as_p }}<input type="submit" value="Registrar">
+                        </form></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+            </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "baseEmpresa.html" %}
+{% block title %}SGFI - Empresa (Sedes){% endblock %}
+{% block subtitulo %}Sedes{% endblock %}
+{% block cuerpo %}
+    <div class=contenedor>
+        {% if listaSedes %}
+            <ul>
+                {% for sede in listaSedes %}
+                    <li>
+                        <img src="{{ user.logo.url }}" class=imagen>
+                        <h2>{{ sede.nombre }}</h2>
+                        <p>Codigo: {{ sede.codigo }}</p>
+                        <p>Ciudad: {{ sede.ciudad }}</p>
+                        <p>Direccion: {{ sede.direccion }}</p>
+                        <p>Telefono: {{ sede.telefono }}</p>
+                        <a href='{% url 'sgfi:empresaEditarSede' sede.codigo %}' class=editar>Editar</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No hay Sedes</p>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SGFI - Registro</title>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'sgfi/css/registroEmpresa.css' %}">
+	<link rel="shortcut icon" href="{% static 'sgfi/img/favicon.ico' %}" />
+	<meta charset="utf-8">
+</head>
+<body>
+	<div class= box-bg></div>
+	<div class=bg-login-box>
+		<div class=login-box>
+            <a class=link-logo href="{% url 'sgfi:login' %}" ><img src="{% static 'sgfi/img/logo.png' %}" class="logo" alt="Imagen Logo"></a>
+			<form method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+        		{{ form.as_p }}
+        		<input type="submit" value="Registrar">
+                <a href="{% url 'sgfi:login' %}">Ingresar</a><br>
+      		</form>
+		</div>
+	</div>
+	<div class= box-link>
+		<a href="#" class="pos-contact"><img src="{% static 'sgfi/img/contact.png' %}" class="contact" alt="Imagen Contacto"></a><br>
+		<a href="#" class="pos-faq"><img src="{% static 'sgfi/img/faq.png' %}" class="faq" alt="Imagen FAQ"></a><br>
+	</div>
+</body>
+</html>

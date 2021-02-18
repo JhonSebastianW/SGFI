@@ -1,0 +1,33 @@
+{% extends "baseEmpresa.html" %}
+{% block title %}SGFI - Empresa (Productos){% endblock %}
+{% block subtitulo %}Facturas{% endblock %}
+{% block cuerpo %}
+    <div class=contenedor>
+        {% if listaFacturas %}
+            <table style="text-align: center">
+               <tr>
+                   <th>Numero</th>
+                   <th>Cliente</th>
+                   <th>Empleado</th>
+                   <th># de Productos</th>
+                   <th>Total</th>
+                   <th>Enlace</th>
+               </tr>
+                {% for factura in listaFacturas %}
+                    <tr>
+                        <td>{{ factura.numero }}</td>
+                        <td>{{ factura.cliente.nombre }} {{ factura.cliente.apellido }}</td>
+                        <td>{{ factura.empleado.primerNombre }} {{ factura.empleado.primerApellido }}</td>
+                        <td>{{ factura.nProductos }}</td>
+                        <th>{{ factura.total }}</th>
+                        {% load static %}
+                        <th><a href="{% url 'sgfi:empresaProductosFacturaVer' factura.numero %}"><img src="{% static 'sgfi/img/ojo.png' %}" width="20" height="20" alt="Ver"></a> &nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'sgfi:empresaProductosFacturaPdf' factura.numero %}"><img src="{% static 'sgfi/img/pdf.png' %}" width="20" height="20" alt="PDF"></a></th>
+                    </tr>
+                {% endfor %}
+
+            </table>
+        {% else %}
+            <p>No hay Facturas regustrados aun.</p>
+        {% endif %}
+    </div>
+{% endblock %}

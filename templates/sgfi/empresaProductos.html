@@ -1,0 +1,25 @@
+{% extends "baseEmpresa.html" %}
+{% block title %}SGFI - Empresa (Productos){% endblock %}
+{% block subtitulo %}Productos{% endblock %}
+{% block cuerpo %}
+    <div class=contenedor>
+        {% if listaProductos %}
+            <ul>
+                {% for producto in listaProductos %}
+                    <li>
+                        {% load static %}
+                         <img src="{{ producto.imagen.url }}" class=imagen>
+                        <h2>{{ producto.nombre }}</h2>
+                        <p>Valor: {{ producto.valor }}, IVA: {{ producto.iva }}</p>
+                        <p>Stock: {{ producto.stock }}</p>
+                        <p>Referencia: {{ producto.referencia }}, Descripcion: {{ producto.descripcion }}</p>
+                        <p>Tipo: {{ producto.tipo.nombre }}, Sede: {{ producto.sede.nombre }}</p>
+                        <a href='{% url 'sgfi:empresaEditarProducto' producto.referencia %}' class=editar>Editar</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No hay Productos regustrados aun.</p>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "baseEmpresa.html" %}
+{% block title %}SGFI - Empresa (Crear Producto){% endblock %}
+{% block subtitulo %}Crear Producto{% endblock %}
+{% block cuerpo %}
+    <div class=registro-box-grande>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Registrar">
+        </form>
+    </div>
+{% endblock %}

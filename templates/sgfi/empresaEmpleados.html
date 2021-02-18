@@ -1,0 +1,25 @@
+{% extends "baseEmpresa.html" %}
+{% block title %}SGFI - Empresa (Empelados){% endblock %}
+{% block subtitulo %}Empleados{% endblock %}
+{% block cuerpo %}
+    <div class=contenedor>
+        {% if listaEmpleados %}
+            <ul>
+                {% for empleado in listaEmpleados %}
+                    <li>
+                        {% load static %}
+                        <img src="{% static 'sgfi/img/585e4bcdcb11b227491c3396.png' %}"class=imagen>
+                        <h2>{{ empleado.primerNombre }} {{ empleado.primerApelldio }} </h2>
+                        <p>Cedula: {{ empleado.username }}</p>
+                        <p>Correo: {{ empleado.email }}</p>
+                        <p>Sede: {{ empleado.sede.nombre }}</p>
+                        <p>Rol: {{ empleado.rol }}</p>
+                        <a href='{% url 'sgfi:empresaEditarEmpleado' empleado.pk %}' class=editar>Editar</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No hay Empleados</p>
+        {% endif %}
+    </div>
+{% endblock %}

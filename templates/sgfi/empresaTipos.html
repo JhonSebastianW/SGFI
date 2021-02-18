@@ -1,0 +1,23 @@
+{% extends "baseEmpresa.html" %}
+{% block title %}SGFI - Empresa (Tipos){% endblock %}
+{% block subtitulo %}Tipos{% endblock %}
+{% block cuerpo %}
+    <div class=contenedor>
+        {% if listaTipos %}
+            <ul>
+                {% for tipo in listaTipos %}
+                    <li>
+                        {% load static %}
+                        <img src="{% static 'sgfi/img/tipo.png' %}"class=imagen>
+                        <h2>{{ tipo.nombre }}</h2>
+                        <p>Codigo: {{ tipo.codigo }}</p>
+                        <p>Ciudad: {{ tipo.descripcion }}</p>
+                        <a href='{% url 'sgfi:empresaEditarTipo' tipo.codigo %}' class=editar>Editar</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No hay Tipos registrados aun.</p>
+        {% endif %}
+    </div>
+{% endblock %}

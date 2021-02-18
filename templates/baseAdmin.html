@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %}{% endblock %}</title>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'sgfi/css/base.css' %}">
+	<link rel="shortcut icon" href="{% static 'sgfi/img/favicon.ico' %}" />
+	<meta charset="utf-8">
+</head>
+<body>
+	<div class=pagina>
+        <div class=superior>
+		    <div class=logo>
+			    <a href="{% url 'sgfi:logout' %}" ><img src="{% static 'sgfi/img/logo.png' %}" alt="Imagen Logo"></a>
+		    </div>
+		    <div class=usuario>
+			    {% if user.logo %}
+                    <img src="{{ user.logo.url }}" class="foto" alt="Imagen Admin">
+			    {%else%}
+                    <img src="{% static 'sgfi/img/foto.png' %}" class="foto" alt="Imagen Admin">
+			    {% endif %}
+
+			    <label class=nombre>{{user.nombre}}</label>
+			    <div class=logout>
+				    <a href="{% url 'sgfi:logout' %}" >Salir</a>
+			    </div>
+		    </div>
+	    </div>
+	<div class=bg-nav-box>
+		<div class=nav-box>
+			<ul>
+				<li><a href="{% url 'sgfi:adminMain' %}"><img src="{% static 'sgfi/img/inicio.png' %}" class="inicio" alt="Icono inicio"><label>Inicio</label></a></li>
+				<li><a href="{% url 'sgfi:adminEmpresas' %}"><img src="{% static 'sgfi/img/empresa.png' %}" class="empresa" alt="icono empresa"><label>Empresas</label></a></li>
+                <li><a href="{% url 'sgfi:adminRegistrarEmpresa' %}"><img src="{% static 'sgfi/img/crearEmpresa.png' %}" class="cEmpresa" alt="Icono crear empresa"><label>Crear Empresa</label></a></li>
+			</ul>
+		</div>
+		<div class=contact-box>
+				<a href="{% url 'sgfi:contacto' %}"><img src="{% static 'sgfi/img/contact.png' %}" class="contact" alt="Imagen Contacto"><label>Contacto</label></a>
+		</div>
+	</div>
+        <div class=cuerpo>
+            <h1>{% block subtitulo %} {% endblock %}</h1>
+            {% block cuerpo %}
+            {% endblock %}
+        </div>
+    </div>
+</body>
+</html>

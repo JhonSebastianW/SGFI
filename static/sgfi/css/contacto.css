@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: url(../img/bg.jpg) no-repeat center top;
+  background-size: cover;
+  font-family: sans-serif;
+  height: 100vh;
+  color: #808080; 
+
+
+}
+.container{
+  max-width: 80%;
+  height: 100%;
+  background: #fff; 
+  margin: 0 auto;
+  border: none;
+  border-left-color: #3f3b35;
+  border-left-style: solid;
+  border-left-width: 35px;
+  border-right-color:  #3f3b35;
+  border-right-style: solid;
+  border-right-width: 35px;  
+  justify-content: center;
+  
+  
+}
+.cont-contacto{	
+	font-size: 11px;
+	font-size: 10px;	
+	width: 100%;
+	max-height: 80%;	
+	padding-top: 5%;
+	display: flex;
+	text-align: center;
+}
+.persona{
+	padding: 0 50px;
+	
+}
+.persona .foto{
+  z-index: 1;
+  width: 45%;
+  height: 50%; 
+ 
+  
+}
+h1{
+	text-align: center;
+	font-size: 50px;
+	padding: 50px 40px;
+	margin:0;
+	
+}
+h2{
+	font-size: 30px;
+	color: black;
+	
+}
+h3{
+	font-size: 20px;
+	color: #db545a;
+}
+p{
+	font-size: 15px;
+}
+span{
+	font-size: 17px;
+	color: #db545a;
+}

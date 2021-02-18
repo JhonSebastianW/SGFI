@@ -1,0 +1,284 @@
+body {
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  background: #fff1dc;
+  background-size: cover;
+  font-family: sans-serif;
+}
+.pagina{
+  width: calc(100%);
+  height: calc(100%);
+  /*border: 1px solid red;*/
+  position: fixed;
+}
+.superior{
+  z-index: 2;
+  width: calc(100%);
+  height: 70px;
+  background: #3f3b35;
+}
+.superior .logo{
+  z-index: 4;
+  width: 160px;
+  height: 69px;
+  position: fixed;
+  top: 0%;
+  left: 45px;
+
+}
+.superior .logo img{
+  position: absolute;
+  top: 1%;
+  left: 8%;
+  width: 139.86px;
+  height: 66.2px;
+}
+.superior .usuario{
+  z-index: 3;
+  width: 190px;
+  height: 69px;
+  position: fixed;
+  top: 0%;
+  right: 0.5%;
+}
+.superior .usuario .foto{
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  top: 5%;
+  left: 0%;
+}
+.superior .usuario .nombre{
+  color: #fff;
+  position: absolute;
+  top: 15%;
+  left: 40%;
+  font-size: 18px;
+
+}
+.superior .usuario .logout {
+  position: absolute;
+  top: 65%;
+  right: 1%;
+  font-size: 15px;
+}
+
+.bg-nav-box{
+  z-index: 2;
+  width: 260px;
+  height: calc(100%);
+  background: #f2c891;
+  position: fixed;
+}
+.bg-nav-box .nav-box{
+  z-index: 3;
+  position: absolute;
+  width: 260px;
+  height: 520px;
+  color: #fff;
+  top: 5%;
+  left: 0%;
+}
+.bg-nav-box .nav-box label{
+  width: 190px;
+  position: absolute;
+  top: -30%;
+  left: 120%;
+}
+.bg-nav-box .nav-box img{
+  width: 40px;
+  height: 40px;
+}
+.bg-nav-box .nav-box ul{
+  position: absolute;
+  width: 220px;
+  list-style: none;
+}
+.bg-nav-box .nav-box li{
+  width: 260px;
+  height:  60px;
+  position: relative;
+  left: -20%;
+}
+.bg-nav-box .nav-box li:hover{
+  background-color: #907751;
+  color: #fff;
+}
+.bg-nav-box .nav-box a{
+  position: relative;
+  top: 14%;
+  left: 8%;
+  font-size: 26px;
+  color: #fff;
+}
+
+.bg-nav-box .contact-box{
+  z-index: 3;
+  position: absolute;
+  left: 0%;
+  bottom: 8%;
+  width: 260px;
+  height: 100px;
+}
+.bg-nav-box .contact-box a{
+  position: absolute;
+  left: 14%;
+  top: 30%;
+  color: #3f3b35;
+  font-size: 26px;
+}
+.bg-nav-box .contact-box a:hover{
+
+  transform: scale(1.05);
+  filter:drop-shadow(2px 6px 4px #001124);
+}
+.bg-nav-box .contact-box .contact{
+  width: 60px;
+  height: 60px;
+}
+.bg-nav-box .contact-box label{
+   position: absolute;
+   top: 20%;
+   left: 100%;
+}
+
+.cuerpo{
+  z-index: 3;
+  position: absolute;
+  top: 71px;
+  left: 261px;
+  width: calc(84%);
+  height: calc(91%);
+  overflow-y: scroll;
+}
+
+a:link {
+  color: #fff;
+}
+
+/* visited link */
+a:visited {
+  color: #fff;
+}
+
+/* mouse over link */
+a:hover {
+  color: #907751;
+}
+
+/* selected link */
+a:active {
+  color: #fff200;
+}
+.registro-box {
+  /*border: 1px solid red;*/
+  position: relative;
+  width: 420px;
+  height: 720px;
+  color: #ffffff;
+  left: 35%;
+  background: #262525;
+  border-radius: 1em;
+  box-sizing: border-box;
+  padding: 70px 30px;
+}
+.registro-box form{
+  position: relative;
+  top: 0%;
+  left:0%;
+  /*border: 1px solid red;*/
+}
+.registro-box input {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.registro-box input[type="text"], .registro-box input[type="password"] {
+  border: none;
+  border-bottom: 1px solid #ffffff;
+  background: transparent;
+  outline: none;
+  height: 40px;
+  color: #ffffff;
+  font-size: 16px;
+}
+.registro-box input[type="submit"] {
+  border: none;
+  outline: none;
+  height: 40px;
+  background: #f1d3a4;
+  color: #000;
+  font-size: 18px;
+  border-radius: 20px;
+}
+.registro-box input[type="submit"]:hover {
+  cursor: pointer;
+  background: #907751;
+  color: #000;
+  filter:drop-shadow(2px 6px 4px #001124);
+}
+.registro-box a{
+  text-decoration-line: underline;
+  font-size: 12px;
+  line-height: 20px;
+  color: darkgrey;
+}
+.registro-box a:hover {
+  color: #fff;
+}
+
+
+
+.empresas{
+  height: auto;
+}
+.empresas img{
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  top: 15%;
+  left: 2%;
+  border: 3px solid #7e7e7e;
+}
+.empresas ul{
+  list-style: none;
+}
+.empresas li{
+  background: #262525;
+  color: white;
+  position: relative;
+  width: 80%;
+  height: 150px;
+  left: 10%;
+  border-radius: 1em;
+  line-height: 0.5;
+}
+.empresas p{
+  position: relative;
+  left: 125px;
+  top: 20%;
+  font-size: 15px;
+}
+.empresas h2{
+  color: #dbbe96;
+  position: relative;
+  left: 125px;
+  top: 20%;
+}
+.empresas .editar{
+  color: #dbbe96;
+  position: absolute;
+  right: 30px;
+  bottom: 10%;
+}
+.empresas .ver{
+  color: #dbbe96;
+  position: absolute;
+  right: 90px;
+  bottom: 10%;
+}
+.cuerpo h1{
+  width: 40%;
+  position: relative;
+  left: 5%;
+}

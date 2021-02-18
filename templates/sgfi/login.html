@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SGFI - Login</title>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'sgfi/css/login.css' %}">
+	<link rel="shortcut icon" href="{% static 'sgfi/img/favicon.ico' %}" />
+	<meta charset="utf-8">
+</head>
+<body>
+	<div class= box-bg></div>
+	<div class=bg-login-box>
+		<div class=login-box>
+			<img src="{% static 'sgfi/img/logo.png' %}" class="logo" alt="Imagen Logo">
+			{% if next %}
+				<form action="/login/?next={{next}}" method="POST" >
+			{%else%}
+				<form action="/login/" method="POST" >
+			{% endif %}
+			{% csrf_token %}
+        		{{ form.as_p }}
+        		<input type="submit" value="Ingresar">
+        		<a href="{% url 'sgfi:recuperar' %}">Olvidaste tu contraseña?</a><br>
+      		</form>
+		</div>
+	</div>
+	<div class= box-link>
+		<a href="{% url 'sgfi:contacto' %}" class="pos-contact"><img src="{% static 'sgfi/img/contact.png' %}" class="contact" alt="Imagen Contacto"></a><br>
+		<a href="{% url 'sgfi:faq' %}" class="pos-faq"><img src="{% static 'sgfi/img/faq.png' %}" class="faq" alt="Imagen FAQ"></a><br>
+	</div>
+</body>
+</html>

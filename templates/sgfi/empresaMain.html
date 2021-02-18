@@ -1,0 +1,16 @@
+{% extends "baseEmpresa.html" %}
+{% block title %}SGFI - Empresa{% endblock %}
+{% block subtitulo %}Inicio{% endblock %}
+{% block cuerpo %}
+    <div class=contenedorMain>
+        <ul>
+           <li>
+               <img src="{{ user.logo.url }}">
+               <h2>{{ user.nombre }}</h2>
+               <p>Usuario: @{{ user.username }}</p>
+               <p>Lema: {{ user.lema }}</p>
+               <p>Estado: {{ user.estado }}</p>
+           </li>
+        </ul>
+    </div>
+{% endblock %}
