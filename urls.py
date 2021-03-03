@@ -44,6 +44,15 @@ urlpatterns = [
     path('empresa/factura/<int:pk>/facturar/', views.empresaProductosFacturaAgregar.as_view(), name='empresaProductosFactura'),
     path('empresa/factura/<int:pk>/ver/', views.empresaProductosFacturaVer.as_view(), name='empresaProductosFacturaVer'),
     path('empresa/factura/<int:pk>/pdf/', views.empresaProductosFacturaPdf.as_view(), name='empresaProductosFacturaPdf'),
+
+    path('empresa/informes/', views.empresaInformes.as_view(), name='empresaInformes'),
+    path('empresa/informe/sedes/', views.empresaInformeSedes.as_view(), name='empresaInformeSedesPdf'),
+    path('empresa/informe/empleados/', views.empresaInformeEmpleados.as_view(), name='empresaInformeEmpleadosPdf'),
+    path('empresa/informe/productos/', views.empresaInformeProductos.as_view(), name='empresaInformeProductosPdf'),
+    path('empresa/informe/ventas/', views.empresaInformeVentas.as_view(), name='empresaInformeVentasPdf'),
+
+    path('empresa/correo/', views.empresaEnviarCorreo.as_view(), name='empresaEnviarCorreo'),
+
     path('registro/', views.registroEmpresa.as_view(), name='registro'),
 
 

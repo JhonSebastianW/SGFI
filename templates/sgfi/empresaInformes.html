@@ -1,0 +1,14 @@
+{% extends "baseEmpresa.html" %}
+{% block title %}SGFI - Empresa{% endblock %}
+{% block subtitulo %}Informes{% endblock %}
+{% block cuerpo %}
+    <div class=contenedorInf>
+        <ul>
+            {% load static %}
+            <li><br><a href="{% url 'sgfi:empresaInformeSedesPdf' %}"><img src="{% static 'sgfi/img/empresa.png' %}"><label>Sedes</label></a></li><br><br><br><br>
+            <li><a href="{% url 'sgfi:empresaInformeEmpleadosPdf' %}"><img src="{% static 'sgfi/img/empleado.png' %}"><label>Empleados</label></a></li><br><br><br><br>
+            <li><a href="{% url 'sgfi:empresaInformeProductosPdf' %}"><img src="{% static 'sgfi/img/producto.png' %}"><label>Productos</label></a></li><br><br><br><br>
+            <li><a href="{% url 'sgfi:empresaInformeVentasPdf' %}"><img src="{% static 'sgfi/img/factura.png' %}"><label>Ventas</label></a></li>
+        </ul>
+    </div>
+{% endblock %}

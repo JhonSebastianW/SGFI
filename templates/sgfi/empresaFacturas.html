@@ -14,6 +14,7 @@
                    <th>Enlace</th>
                </tr>
                 {% for factura in listaFacturas %}
+                    {% if factura.nProductos != 0 %}
                     <tr>
                         <td>{{ factura.numero }}</td>
                         <td>{{ factura.cliente.nombre }} {{ factura.cliente.apellido }}</td>
@@ -23,6 +24,7 @@
                         {% load static %}
                         <th><a href="{% url 'sgfi:empresaProductosFacturaVer' factura.numero %}"><img src="{% static 'sgfi/img/ojo.png' %}" width="20" height="20" alt="Ver"></a> &nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'sgfi:empresaProductosFacturaPdf' factura.numero %}"><img src="{% static 'sgfi/img/pdf.png' %}" width="20" height="20" alt="PDF"></a></th>
                     </tr>
+                    {% endif %}
                 {% endfor %}
 
             </table>

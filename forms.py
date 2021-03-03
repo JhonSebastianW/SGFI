@@ -194,6 +194,14 @@ class ProductosFacturaRegistrar(ModelForm):
 		super(ProductosFacturaRegistrar, self).__init__(*args, **kwargs)
 		self.fields['producto'].label = "Producto"
 
+class EnviarEmail(forms.Form):
+	OPCIONES = [
+		('empleados', 'empleados'),
+		('clientes', 'clientes'),
+	]
+	opcion = forms.ChoiceField(choices=OPCIONES)
+	mensaje = forms.CharField(widget=forms.Textarea)
+
 
 class EmpresaAuthForm(AuthenticationForm):
     def confirm_login_allowed(self, user):

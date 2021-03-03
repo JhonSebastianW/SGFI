@@ -10,10 +10,12 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.mixins import LoginRequiredMixin
+
 # Create your views here.
 from .models import Empresa,Sede,Empleado,Tipo,Producto,Factura,ProductosFactura,Cliente
-from .forms import EmpresaLogin, EmpresaEditarPwd, EmpresaRegistrar, EmpresaEditar, SedeRegistrar, SedeEditar, EmpleadoRegistrar, EmpleadoEditar, TipoRegistrar,TipoEditar, ProductoEditar,ProductoRegistrar, FacturaEditar,FacturaRegistrar, ProductosFacturaRegistrar, EmpresaRecuperarPwd
+from .forms import *
 from .utils import *
+host='181.61.187.11'
 class contactoView(View):
 	succes_url = reverse_lazy('sgfi:all')
 	template = 'sgfi/contacto.html'
@@ -66,7 +68,6 @@ class recuperar(View):
 				token= str(random.randrange(10))+str(random.randrange(10))+str(random.randrange(10))+str(random.randrange(10))
 				empresa.token=token
 				empresa.save()
-				host='181.61.187.11'
 				url='http://'+host+':8000/recuperar/pwd/'+empresa.username+'_'+token+'/'
 				enviarCorreo(empresa.username, empresa.email, "Recuperacion de cuenta.",
 						 "Hola " + empresa.username + ", haz intentado recuperar tu contraseña en SGFI. ingresa a "+url)
@@ -484,9 +485,7 @@ class empresaProductos(LoginRequiredMixin,View):
 	template = 'sgfi/empresaProductos.html'
 	def get(self, request):
 		if (request.user.username != 'Admin' and request.user.estado==True):
-			Sede.objects.all()
 			sedes = Sede.objects.filter(empresa=request.user)
-			Producto.objects.all()
 			productos =Producto.objects.filter(sede__in=sedes)
 			ctx={'listaProductos': productos}
 			return render(request, self.template,ctx)
@@ -551,13 +550,9 @@ class empresaFacturas(LoginRequiredMixin,View):
 	template = 'sgfi/empresaFacturas.html'
 	def get(self, request):
 		if (request.user.username != 'Admin' and request.user.estado==True):
-			Sede.objects.all()
 			sedes = Sede.objects.filter(empresa=request.user)
-			Empleado.objects.all()
 			empleados =Empleado.objects.filter(sede__in=sedes)
-			Factura.objects.all()
-			facturas = Factura.objects.filter(empleado__in=empleados)
-
+			facturas = Factura.objects.filter(empleado__in=empleados).order_by('numero')
 			productosFactura=[]
 			productos = []
 			total = []
@@ -574,7 +569,10 @@ class empresaFacturas(LoginRequiredMixin,View):
 					total[i]+=productos[i][j].valor+(productos[i][j].valor*productos[i][j].iva)
 			for i in range(len(facturas)):
 				facturas[i].total=total[i]
-			ctx={'listaFacturas': facturas,'listaTotal': total,'listaProductos':productos}
+			for i in range(len(facturas)):
+				if(facturas[i].nProductos==0):
+					facturas[i].delete()
+			ctx={'listaFacturas': facturas}
 			return render(request, self.template,ctx)
 		else:
 			return redirect('/logout/')
@@ -667,7 +665,8 @@ class empresaProductosFacturaVer(LoginRequiredMixin,View):
 					iva+=productos[i].valor*productos[i].iva
 					total+=productos[i].valor
 				neto = total+iva
-				ctx = {'listaProductosFactura': productos,'total': neto,'subtotal': total,'iva': iva, 'factura': factura, 'empleado': empleado,'sede': sede}
+				direc=crearQR(host+'/empresa/factura/'+str(pk)+'/pdf/',str(pk))
+				ctx = {'listaProductosFactura': productos,'total': neto,'subtotal': total,'iva': iva, 'factura': factura, 'empleado': empleado,'sede': sede, 'dirQR': direc}
 				return render(request, self.template,ctx)
 			else:
 				return redirect('/empresa/facturas/')
@@ -703,6 +702,124 @@ class empresaProductosFacturaPdf(LoginRequiredMixin,View):
 		else:
 			return redirect('/logout/')
 
+
+class empresaInformes(LoginRequiredMixin,View):
+	login_url = '/login/'
+	succes_url = reverse_lazy('sgfi:all')
+	template = 'sgfi/empresaInformes.html'
+	def get(self, request):
+		if (request.user.username != 'Admin' and request.user.estado==True):
+			return render(request, self.template)
+		else:
+			return redirect('/logout/')
+
+class empresaInformeEmpleados(LoginRequiredMixin,View):
+	login_url = '/login/'
+	succes_url = reverse_lazy('sgfi:all')
+	template = 'sgfi/informeEmpleados.html'
+	def get(self, request):
+		if (request.user.username != 'Admin' and request.user.estado == True):
+			sedes = Sede.objects.filter(empresa=request.user)
+			Empleado.objects.all()
+			empleados = Empleado.objects.filter(sede__in=sedes)
+			ctx = {'listaEmpleados': empleados, 'titulo':"Empleados" , 'user': request.user}
+			pdf=render_to_pdf(self.template,ctx)
+			return HttpResponse(pdf, content_type='application/pdf')
+		else:
+			return redirect('/logout/')
+
+class empresaInformeSedes(LoginRequiredMixin,View):
+	login_url = '/login/'
+	succes_url = reverse_lazy('sgfi:all')
+	template = 'sgfi/informeSedes.html'
+	def get(self, request):
+		if (request.user.username != 'Admin' and request.user.estado == True):
+			sedes = Sede.objects.filter(empresa=request.user)
+			ctx = {'listaSedes': sedes, 'titulo':"Sedes" , 'user': request.user}
+			pdf=render_to_pdf(self.template,ctx)
+			return HttpResponse(pdf, content_type='application/pdf')
+		else:
+			return redirect('/logout/')
+
+class empresaInformeProductos(LoginRequiredMixin,View):
+	login_url = '/login/'
+	succes_url = reverse_lazy('sgfi:all')
+	template = 'sgfi/informeProductos.html'
+	def get(self, request):
+		if (request.user.username != 'Admin' and request.user.estado == True):
+			sedes = Sede.objects.filter(empresa=request.user)
+			productos = Producto.objects.filter(sede__in=sedes)
+			ctx = {'listaProductos': productos, 'titulo':"Productos" , 'user': request.user}
+			pdf=render_to_pdf(self.template,ctx)
+			return HttpResponse(pdf, content_type='application/pdf')
+		else:
+			return redirect('/logout/')
+
+class empresaInformeVentas(LoginRequiredMixin,View):
+	login_url = '/login/'
+	succes_url = reverse_lazy('sgfi:all')
+	template = 'sgfi/informeFacturas.html'
+	def get(self, request):
+		if (request.user.username != 'Admin' and request.user.estado == True):
+			sedes = Sede.objects.filter(empresa=request.user)
+			empleados = Empleado.objects.filter(sede__in=sedes)
+			facturas = Factura.objects.filter(empleado__in=empleados).order_by('numero')
+			productosFactura = []
+			productos = []
+			total = []
+			for i in range(len(facturas)):
+				productosFactura.append(ProductosFactura.objects.filter(factura=facturas[i]))
+				productos.append([])
+				total.append(0)
+			for i in range(len(productosFactura)):
+				for j in range(len(productosFactura[i])):
+					productos[i].append(productosFactura[i][j].producto)
+			for i in range(len(productos)):
+				facturas[i].nProductos = len(productos[i])
+				for j in range(len(productos[i])):
+					total[i] += productos[i][j].valor + (productos[i][j].valor * productos[i][j].iva)
+			for i in range(len(facturas)):
+				facturas[i].total = total[i]
+			for i in range(len(facturas)):
+				if (facturas[i].nProductos == 0):
+					facturas[i].delete()
+			ctx = {'listaFacturas': facturas, 'titulo':"Ventas" , 'user': request.user}
+			pdf=render_to_pdf(self.template,ctx)
+			return HttpResponse(pdf, content_type='application/pdf')
+		else:
+			return redirect('/logout/')
+
+class empresaEnviarCorreo(LoginRequiredMixin,View):
+	login_url = '/login/'
+	succes_url = reverse_lazy('sgfi:all')
+	template = 'sgfi/empresaEnviarCorreo.html'
+	form = EnviarEmail()
+	def get(self, request):
+		if (request.user.username != 'Admin' and request.user.estado==True):
+			return render(request, self.template,{'form': self.form})
+		else:
+			return redirect('/logout/')
+	def post(self, request):
+		opcion = request.POST['opcion']
+		mensaje = request.POST['mensaje']
+		try:
+			if(opcion=='empleados'):
+				sedes = Sede.objects.filter(empresa=request.user)
+				Empleado.objects.all()
+				empleados = Empleado.objects.filter(sede__in=sedes)
+				for i in range(len(empleados)):
+					enviarCorreo(empleados[i].primerNombre,empleados[i].email,"Correo Masivo", mensaje)
+			else:
+				sedes = Sede.objects.filter(empresa=request.user)
+				empleados = Empleado.objects.filter(sede__in=sedes)
+				facturas = Factura.objects.filter(empleado__in=empleados).values('cliente').distinct()
+				clientes = Cliente.objects.filter(cedula__in=facturas)
+				for i in range(len(clientes)):
+					enviarCorreo(clientes[i].nombre,clientes[i].email,"Correo Masivo", mensaje)
+			return redirect('/empresa/correo/')
+		except:
+			return redirect('/empresa/')
+
 class registroEmpresa(View):
 	login_url = '/login/'
 	succes_url = reverse_lazy('sgfi:all')
@@ -729,3 +846,4 @@ class registroEmpresa(View):
 			return redirect('/login/')
 		except:
 			return redirect('/login/')
+

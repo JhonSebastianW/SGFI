@@ -6,6 +6,7 @@
 <div class="atras">
     <a href="{% url 'sgfi:empresaFacturas' %}">Atras.</a>
 </div>
+    <img src="{% static 'sgfi/qr/'%}{{factura.numero}}.png" class="qr">
 <div class=contenedorMain>
         <ul>
            <li>
@@ -69,7 +70,9 @@
             {% endif %}
             </table>
     </div>
+
     <div class="pdf">
+
         <a href="{% url 'sgfi:empresaProductosFacturaPdf' factura.numero %}"><img src="{% static 'sgfi/img/pdf.png' %}" alt="PDF"></a>
     </div>
 {% endblock %}

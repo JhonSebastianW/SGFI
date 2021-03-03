@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Informe {{ titulo }}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'sgfi/css/base.css' %}">
+</head>
+<body>
+    <h1>{{ titulo }}</h1>
+    <img src="{{ user.logo.url }}" width="100" height="100" style="text-align: right; border-radius:50px;">
+    <div class=contenedorMain>
+        <br><br>
+        <table>
+           <tr style="border-top: 2px solid #000000;"><td></td><td>.</td></tr>
+            <tr>
+            <td>
+               <p>
+                    <strong>{{ user.nombre }}</strong><br>
+                    {{ user.username }}<br>
+                    {{ user.email }}, {{ sede.telefono }}<br>
+                    {{ user.lema }}<br>
+               </p>
+           </td>
+            <td>
+                <p>
+                </p>
+            </td>
+            </tr>
+            <tr style="border-bottom: 2px solid #000000;"><td></td><td>.</td></tr>
+        </table>
+    </div>
+    <br><br>
+    <div class=contenedor>
+            <table style="text-align: right;">
+                <tr style="border-top: 2px solid #000000;"><td></td><td></td><td></td><td><br></td></tr>
+                <tr style="border-bottom: 1px solid red;">
+                   <th>Username</th>
+                   <th>Primer Nombre</th>
+                   <th>Primer Apellido</th>
+                   <th>Rol</th>
+                    <th>Email</th>
+                    <th>Fecha Registro</th>
+                    <th>Sede</th>
+               </tr>
+                <tr>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                    <td>.</td>
+                    <td>.</td>
+                    <td>.</td>
+                </tr>
+            {% if listaEmpleados %}
+                {% for empleado in listaEmpleados %}
+                    <tr>
+                        <td>{{ empleado.username }}</td>
+                        <td>{{ empleado.primerNombre }}</td>
+                        <td>{{ empleado.primerApellido }}</td>
+                        <td>{{ empleado.rol }}</td>
+                        <td>{{ empleado.email }}</td>
+                        <td>{{ empleado.fechaCreado }}</td>
+                        <td>{{ empleado.sede.nombre }}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                <td>.</td>
+                <td>.</td>
+                <td>.</td>
+                </tr>
+                <tr style="border-top: 1px solid #000000;">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td><br></td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td></td>
+                    <td>No hay empleados aun</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            {% endif %}
+                <tr style="border-top: 2px solid #000000;"><td></td><td></td><td></td><td><br></td></tr>
+            </table>
+    </div>
+    <p>
+        <i>Informe generada a partir de SGFI. ®</i>
+    </p>
+</body>
+</html>

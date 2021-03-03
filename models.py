@@ -69,6 +69,7 @@ class Cliente (models.Model):
 	cedula = models.IntegerField(primary_key=True)
 	nombre = models.CharField(max_length=30)
 	apellido = models.CharField(max_length=30)
+	email = models.CharField(max_length=254)
 	def __str__(self):
 		return self.nombre+" "+self.apellido
 	
@@ -82,7 +83,6 @@ class Factura(models.Model):
 	empleado = models.ForeignKey(Empleado, on_delete=models.CASCADE)
 	def __str__(self):
 		return str(self.numero)
-
 
 class ProductosFactura(models.Model):
 	factura  = models.ForeignKey(Factura, on_delete=models.CASCADE)

@@ -5,7 +5,8 @@ from xhtml2pdf import pisa
 from django.http import HttpResponse
 from io import BytesIO
 import os
-
+import qrcode
+import shutil
 def enviarCorreo(user,mail,asunto,contenido):
     context={'cont': contenido, 'mail': mail, 'user': user}
     template = get_template('correo.html')
@@ -33,3 +34,16 @@ def render_to_pdf(template_src,context_dict={}):
 def fetch_resources(uri, rel):
     path = os.path.join(settings.MEDIA_ROOT, uri.replace(settings.MEDIA_URL, ""))
     return path
+
+def crearQR(cadena,nombre):
+    imagen= qrcode.make(cadena)
+    dir='sgfi/static/sgfi/qr/'
+    nombreArchivo=nombre+".png"
+    imagen.save(nombreArchivo)
+    try:
+        os.remove(dir+nombreArchivo)
+    except:
+        pass
+    shutil.move(nombreArchivo,dir)
+    direccion=dir+nombreArchivo
+    return direccion

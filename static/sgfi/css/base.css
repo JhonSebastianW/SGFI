@@ -148,13 +148,16 @@ body {
 
 .cuerpo{
   z-index: 3;
-  position: fixed;
+  position: absolute;
   bottom: 0px;
   right: 0px;
   width: 82%;
   height: 91%;
   overflow-y: scroll;
   overflow-x: scroll;
+}
+.cuerpo h1{
+  position: relative;
 }
 
 a:link {
@@ -437,9 +440,16 @@ table {
 .pdf img, .pdf a{
   position: absolute;
   left: 45%;
-  top: 70%;
+  top: 75%;
   width: 80px;
   height: 100px;
+}
+.qr{
+  position: relative;
+  left: 45%;
+  top: 0%;
+  width: 110px;
+  height: 110px;
 }
 a:hover {
   color: #fff;
@@ -449,4 +459,34 @@ a:hover {
   position: relative;
   left: 50px;
   color: #907751;
+}
+
+.contenedorInf{
+  height: auto;
+}
+.contenedorInf img{
+  position: relative;
+  width: 70px;
+  height: 70px;
+  top: 10%;
+  left: 5%;
+
+}
+.contenedorInf label{
+  position: absolute;
+  right: 5%;
+  top: 50%;
+}
+.contenedorInf ul{
+  list-style: none;
+}
+.contenedorInf li{
+  background: #db9300;
+  color: white;
+  position: relative;
+  width: 180px;
+  height: 100px;
+  left: 10%;
+  border-radius: 1em;
+  line-height: 0.5;
 }

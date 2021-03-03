@@ -1,0 +1,12 @@
+{% extends "baseEmpresa.html" %}
+{% block title %}SGFI - Empresa (Correo){% endblock %}
+{% block subtitulo %}Correo masivo{% endblock %}
+{% block cuerpo %}
+    <div class=registro-box>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Enviar">
+        </form>
+    </div>
+{% endblock %}
