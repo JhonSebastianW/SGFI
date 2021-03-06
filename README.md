@@ -6,5 +6,3 @@ Facultad de Ingenieria
 Ingenieria de Sistemas
 Factores Humanos
 2021
-Sebastian Pulido  - 20161020020
-Christian Ramírez - 20161020093
