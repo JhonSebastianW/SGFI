@@ -1,5 +1,5 @@
 # SGFI
-Sistema de gestion de facturas e inventarios creado a partir de Django Framwork
+Sistema de gestion de facturas e inventarios creado a partir de Django Framework
 
 Universidad Distrital Francisco Jose de Caldas
 Facultad de Ingenieria
